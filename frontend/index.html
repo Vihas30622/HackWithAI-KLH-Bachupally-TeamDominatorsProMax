@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceVault · Premium Entry System</title>
+  <meta name="description" content="AI-powered face recognition entry management system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+
+  <!-- ── Aurora WebGL Background ─────────────────────────────────── -->
+  <div id="aurora-bg"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ── Top bar ─────────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="13" stroke="url(#lg1)" stroke-width="2" />
+          <path d="M9 14a5 5 0 0 1 10 0" stroke="url(#lg1)" stroke-width="2" stroke-linecap="round" />
+          <circle cx="14" cy="10" r="2.5" fill="url(#lg1)" />
+          <defs>
+            <linearGradient id="lg1" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#b8b46a" />
+              <stop offset="1" stop-color="#a6a354" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <span class="logo-text">FaceVault</span>
+      <span class="logo-badge">AI-SECURED</span>
+    </div>
+    <div class="topbar-center">
+      <nav class="tab-nav">
+        <button class="tab-btn active" id="tab-home" onclick="switchTab('home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Home
+        </button>
+        <button class="tab-btn" id="tab-register" onclick="switchTab('register')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <line x1="19" y1="8" x2="19" y2="14" />
+            <line x1="22" y1="11" x2="16" y2="11" />
+          </svg>
+          Register Member
+        </button>
+        <button class="tab-btn" id="tab-verify" onclick="switchTab('verify')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 7l-7 5 7 5V7z" />
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+          </svg>
+          Live Verify
+        </button>
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <div class="status-badge" id="status-badge">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Connecting…</span>
+      </div>
+      <div class="member-count-chip" id="member-count-chip">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 1-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        <span id="member-count">–</span> Members
+      </div>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SECTION 0 — Home                                            -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <main id="section-home" class="section active" style="text-align: center; margin-top: 10vh;">
+    <div class="logo-mark" style="margin: 0 auto 30px; width: 80px; height: 80px;">
+      <svg width="80" height="80" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="13" stroke="url(#lg2)" stroke-width="2" />
+        <path d="M9 14a5 5 0 0 1 10 0" stroke="url(#lg2)" stroke-width="2" stroke-linecap="round" />
+        <circle cx="14" cy="10" r="2.5" fill="url(#lg2)" />
+        <defs>
+          <linearGradient id="lg2" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#b8b46a" />
+            <stop offset="1" stop-color="#a6a354" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <h1 style="font-size: clamp(40px, 6vw, 64px); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px;">
+      <span class="shiny-text">FaceVault AI Security</span>
+    </h1>
+    <p style="font-size: 20px; color: var(--text-2); max-width: 600px; margin: 0 auto 50px; line-height: 1.5;">
+      Welcome To The Premium Facial Recognition Entry System. Delivering Maximum Local Data Sovereignty With
+      Instantaneous Real-Time Facial Recognition.
+    </p>
+    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn" style="padding: 1.2em 3.5em;" onclick="switchTab('verify')">
+        <span class="transition"></span>
+        <span class="gradient"></span>
+        <span class="label">Launch Live Verification</span>
+      </button>
+      <button class="btn" style="padding: 1.2em 3.5em;" onclick="switchTab('register')">
+        <span class="transition"></span>
+        <span class="gradient"></span>
+        <span class="label">Enroll New Members</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SECTION 1 — Register                                       -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <main id="section-register" class="section hidden">
+    <div class="section-hero">
+      <h1 class="section-title"><span class="shiny-text">✨ Register New Member</span></h1>
+      <p class="section-subtitle">Upload a clear photo to enrol a member into the Lounge database.</p>
+    </div>
+
+    <div class="register-layout">
+      <!-- Upload card -->
+      <div class="card upload-card">
+        <div class="card-header">
+          <div class="card-icon icon-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
+          <h2 class="card-title">Member Enrollment</h2>
+        </div>
+
+        <form id="register-form" novalidate>
+          <div class="dropzone" id="dropzone">
+            <div class="dropzone-inner" id="dropzone-inner">
+              <div class="dropzone-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="3" />
+                  <circle cx="9" cy="9" r="2" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>
+              </div>
+              <p class="dropzone-text">Drop photo here or <span class="dropzone-link">browse</span></p>
+              <p class="dropzone-hint">JPG, PNG · Face must be clearly visible</p>
+            </div>
+            <img id="preview-img" class="preview-img hidden" alt="Preview" />
+            <input type="file" id="photo-input" accept="image/jpeg,image/png,image/jpg" hidden />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="member-name">Full Name <span class="required">*</span></label>
+              <input type="text" id="member-name" class="form-input" placeholder="e.g. Arjun Sharma"
+                autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="member-level">Membership Tier</label>
+              <select id="member-level" class="form-input form-select">
+                <option value="Platinum">⚡ Platinum</option>
+                <option value="Premium" selected>⭐ Premium</option>
+                <option value="Gold">🥇 Gold</option>
+                <option value="Silver">🥈 Silver</option>
+                <option value="VIP">💎 VIP</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-full" id="register-btn">
+            <span class="transition"></span>
+            <span class="gradient"></span>
+            <span class="label">
+              <span class="btn-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </span>
+              <span id="register-btn-text">Enroll Member</span>
+            </span>
+          </button>
+        </form>
+
+        <div id="register-result" class="result-toast hidden"></div>
+      </div>
+
+      <!-- Members list card -->
+      <div class="card members-card">
+        <div class="card-header">
+          <div class="card-icon icon-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h2 class="card-title">Registered Members</h2>
+          <button class="btn-icon-only" onclick="loadMembers()" title="Refresh">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10" />
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="search-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" id="member-search" class="search-input" placeholder="Search members…"
+            oninput="filterMembers()" />
+        </div>
+
+        <div class="members-list" id="members-list">
+          <div class="empty-state">
+            <div class="empty-icon">👥</div>
+            <p>Loading members…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SECTION 2 — Live Verify                                     -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <main id="section-verify" class="section hidden">
+    <div class="section-hero">
+      <h1 class="section-title"><span class="shiny-text">✨ Live Verification</span></h1>
+      <p class="section-subtitle">Real-time biometric face recognition — powered by ArcFace AI.</p>
+    </div>
+
+    <div class="verify-layout">
+      <!-- Camera feed card -->
+      <div class="card camera-card">
+        <div class="card-header">
+          <div class="card-icon icon-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+          </div>
+          <h2 class="card-title">Camera Feed</h2>
+          <div class="camera-live-badge hidden" id="camera-live-badge">
+            <span class="pulse-dot"></span> LIVE
+          </div>
+        </div>
+
+        <div class="camera-container" id="camera-container">
+          <div class="camera-offline" id="camera-offline">
+            <div class="camera-offline-icon">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M23 7l-7 5 7 5V7z" />
+                <rect x="1" y="5" width="15" height="14" rx="2" />
+              </svg>
+            </div>
+            <p class="camera-offline-title">Camera Inactive</p>
+            <p class="camera-offline-sub">Start the live feed to begin verification</p>
+          </div>
+          <img id="video-stream" class="video-stream hidden" alt="Live recognition feed" />
+        </div>
+
+        <div class="camera-controls">
+          <button class="btn" id="start-btn" onclick="startCamera()">
+            <span class="transition"></span>
+            <span class="gradient"></span>
+            <span class="label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <polygon points="10,8 16,12 10,16" />
+              </svg>
+              Start Camera
+            </span>
+          </button>
+          <button class="btn hidden" id="stop-btn" onclick="stopCamera()">
+            <span class="transition"></span>
+            <span class="gradient"></span>
+            <span class="label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <rect x="9" y="9" width="6" height="6" />
+              </svg>
+              Stop Camera
+            </span>
+          </button>
+          <div class="camera-index-wrap">
+            <label class="form-label" for="cam-index">Camera</label>
+            <input type="number" id="cam-index" class="form-input cam-index-input" value="0" min="0" max="9" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Info panel -->
+      <div class="info-panel">
+        <div class="card how-it-works-card">
+          <div class="card-header">
+            <div class="card-icon icon-gold">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <h2 class="card-title">How It Works</h2>
+          </div>
+          <ol class="how-list">
+            <li class="how-item">
+              <div class="how-num">1</div>
+              <div><strong>DNN Tracker</strong>
+                <p>ResNet-10 SSD detects faces at 60 FPS in real-time.</p>
+              </div>
+            </li>
+            <li class="how-item">
+              <div class="how-num">2</div>
+              <div><strong>ArcFace Embedding</strong>
+                <p>Deep face embeddings are extracted by DeepFace.</p>
+              </div>
+            </li>
+            <li class="how-item">
+              <div class="how-num">3</div>
+              <div><strong>Cosine Matching</strong>
+                <p>Probe embedding is matched against your registered database.</p>
+              </div>
+            </li>
+            <li class="how-item">
+              <div class="how-num">4</div>
+              <div><strong>Decision</strong>
+                <p>✅ GRANTED or ❌ DENIED is shown instantly on stream.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="card log-card">
+          <div class="card-header">
+            <div class="card-icon icon-gold">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+            </div>
+            <h2 class="card-title">Entry Log</h2>
+            <button class="btn-icon-only" onclick="clearLog()" title="Remove stale/unknown entries">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6M14 11v6M9 6V4h6v2" />
+              </svg>
+            </button>
+            <button class="btn-icon-only" onclick="loadLogs()" title="Refresh logs">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10" />
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+              </svg>
+            </button>
+          </div>
+          <div class="log-list" id="log-list">
+            <div class="empty-state">
+              <div class="empty-icon">📋</div>
+              <p>No entries yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ColorBends WebGL Background (port of ReactBits ColorBends) -->
+  <script>
+    (function initColorBends() {
+      const MAX_COLORS = 8;
+
+      const VERT = `#version 300 es
+in vec2 aPos;
+out vec2 vUv;
+void main() { 
+  vUv = aPos * 0.5 + 0.5;
+  gl_Position = vec4(aPos, 0.0, 1.0); 
+}`;
+
+      const FRAG = `#version 300 es
+precision highp float;
+#define MAX_COLORS ${MAX_COLORS}
+
+uniform vec2 uCanvas;
+uniform float uTime;
+uniform float uSpeed;
+uniform vec2 uRot;
+uniform int uColorCount;
+uniform vec3 uColors[MAX_COLORS];
+uniform int uTransparent;
+uniform float uScale;
+uniform float uFrequency;
+uniform float uWarpStrength;
+uniform vec2 uPointer; // in NDC [-1,1]
+uniform float uMouseInfluence;
+uniform float uParallax;
+uniform float uNoise;
+
+in vec2 vUv;
+out vec4 fragColor;
+
+void main() {
+  float t = uTime * uSpeed;
+  vec2 p = vUv * 2.0 - 1.0;
+  p += uPointer * uParallax * 0.1;
+  vec2 rp = vec2(p.x * uRot.x - p.y * uRot.y, p.x * uRot.y + p.y * uRot.x);
+  vec2 q = vec2(rp.x * (uCanvas.x / uCanvas.y), rp.y);
+  
+  q /= max(uScale, 0.0001);
+  q /= 0.5 + 0.2 * dot(q, q);
+  q += 0.2 * cos(t) - 7.56;
+  
+  vec2 toward = (uPointer - rp);
+  q += toward * uMouseInfluence * 0.2;
+
+  vec3 col = vec3(0.0);
+  float a = 1.0;
+
+  if (uColorCount > 0) {
+    vec2 s = q;
+    vec3 sumCol = vec3(0.0);
+    float cover = 0.0;
+    
+    for (int i = 0; i < MAX_COLORS; ++i) {
+      if (i >= uColorCount) break;
+      s -= 0.01;
+      vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+      float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+      float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+      float kMix = pow(kBelow, 0.3); // strong response across 0..1
+      float gain = 1.0 + max(uWarpStrength - 1.0, 0.0); // allow >1 to amplify displacement
+      vec2 disp = (r - s) * kBelow;
+      vec2 warped = s + disp * gain;
+      float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+      float m = mix(m0, m1, kMix);
+      float w = 1.0 - exp(-6.0 / exp(6.0 * m));
+      
+      sumCol += uColors[i] * w;
+      cover = max(cover, w);
+    }
+    col = clamp(sumCol, 0.0, 1.0);
+    a = uTransparent > 0 ? cover : 1.0;
+  }
+
+  if (uNoise > 0.0001) {
+    float n = fract(sin(dot(gl_FragCoord.xy + vec2(uTime), vec2(12.9898, 78.233))) * 43758.5453123);
+    col += (n - 0.5) * uNoise;
+    col = clamp(col, 0.0, 1.0);
+  }
+
+  vec3 rgb = (uTransparent > 0) ? col * a : col;
+  fragColor = vec4(rgb, a);
+}`;
+
+      function toVec3(hex) {
+        const h = hex.replace('#', '').trim();
+        const v = h.length === 3
+          ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
+          : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+        return [v[0] / 255, v[1] / 255, v[2] / 255];
+      }
+
+      function compileShader(gl, type, src) {
+        const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(s)); return null; }
+        return s;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+      document.getElementById('aurora-bg').appendChild(canvas);
+
+      const gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'high-performance' });
+      if (!gl) { return; }
+
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+      const vs = compileShader(gl, gl.VERTEX_SHADER, VERT);
+      const fs = compileShader(gl, gl.FRAGMENT_SHADER, FRAG);
+      const prog = gl.createProgram();
+      gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.error(gl.getProgramInfoLog(prog)); return; }
+      gl.useProgram(prog);
+
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(prog, 'aPos');
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+      const u = n => gl.getUniformLocation(prog, n);
+      const uCanvas = u('uCanvas'), uTime = u('uTime'), uSpeed = u('uSpeed');
+      const uRot = u('uRot'), uColorCount = u('uColorCount');
+      const uTransparent = u('uTransparent'), uScale = u('uScale'), uFrequency = u('uFrequency');
+      const uWarpStrength = u('uWarpStrength'), uPointer = u('uPointer'), uMouseInfluence = u('uMouseInfluence');
+      const uParallax = u('uParallax'), uNoise = u('uNoise');
+
+      // Get array location manually
+      const uColorsLoc = [];
+      for (let i = 0; i < MAX_COLORS; i++) {
+        uColorsLoc.push(gl.getUniformLocation(prog, 'uColors[' + i + ']'));
+      }
+
+      // ─── USER CONFIGURATION ───
+      const config = {
+        rotation: 45,
+        speed: 0.2,
+        colors: ["#ffc800", "#ffd500"], // requested colors
+        transparent: true,
+        autoRotate: 0,
+        scale: 1,
+        frequency: 1.1,
+        warpStrength: 1,
+        mouseInfluence: 0,
+        parallax: 1.1,
+        noise: 0.1
+      };
+
+      // Set initial uniforms
+      gl.uniform1f(uSpeed, config.speed);
+      gl.uniform1f(uScale, config.scale);
+      gl.uniform1f(uFrequency, config.frequency);
+      gl.uniform1f(uWarpStrength, config.warpStrength);
+      gl.uniform1f(uMouseInfluence, config.mouseInfluence);
+      gl.uniform1f(uParallax, config.parallax);
+      gl.uniform1f(uNoise, config.noise);
+      gl.uniform1i(uTransparent, config.transparent ? 1 : 0);
+
+      const parsedColors = config.colors.map(toVec3);
+      gl.uniform1i(uColorCount, parsedColors.length);
+      for (let i = 0; i < MAX_COLORS; i++) {
+        if (i < parsedColors.length) {
+          gl.uniform3f(uColorsLoc[i], parsedColors[i][0], parsedColors[i][1], parsedColors[i][2]);
+        } else {
+          gl.uniform3f(uColorsLoc[i], 0.0, 0.0, 0.0);
+        }
+      }
+
+      // Pointer movement disabled per request
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        gl.uniform2f(uCanvas, canvas.width, canvas.height);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      let t0 = null;
+      let lastTime = performance.now();
+
+      function frame(ts) {
+        requestAnimationFrame(frame);
+
+        const now = performance.now();
+        const dt = (now - lastTime) / 1000;
+        lastTime = now;
+
+        if (!t0) t0 = ts;
+        const elapsed = (ts - t0) * 0.001;
+
+        if (config.transparent) {
+          gl.clearColor(0, 0, 0, 0);
+        } else {
+          gl.clearColor(0, 0, 0, 1);
+        }
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        gl.uniform1f(uTime, elapsed);
+
+        // Rotation
+        const deg = (config.rotation % 360) + config.autoRotate * elapsed;
+        const rad = (deg * Math.PI) / 180;
+        gl.uniform2f(uRot, Math.cos(rad), Math.sin(rad));
+
+        // Pointer centered
+        gl.uniform2f(uPointer, 0.0, 0.0);
+
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      }
+      requestAnimationFrame(frame);
+    })();
+  </script>
+
+  <script src="/static/app.js"></script>
+</body>
+
+</html>

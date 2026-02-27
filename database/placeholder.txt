@@ -1,0 +1,3 @@
+Place premium member JPEG images here.
+File naming convention: member<ID>.jpg  (e.g., member1.jpg, member2.jpg)
+These images are used during member registration via register_members.py.

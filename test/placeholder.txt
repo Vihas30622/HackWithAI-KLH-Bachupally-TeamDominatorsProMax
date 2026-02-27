@@ -1,0 +1,1 @@
+Place the guest test image here as guest.jpg before running recognize_photo.py.
